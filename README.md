@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Novadax Java SDK (v1 version)
 
 This is novadax Java SDK, This is a lightweight Java library, you can import to your Java project and use this SDK to query all market data, trading and manage your account.
@@ -94,16 +95,6 @@ try {
 
 ##Request-example
 
-https://stage-doc.novadax.com/en-US/?shell#cancel-an-order
-
-
-
-
-
-
-
-
-
-
+https://doc.novadax.com/en-US/?shell#cancel-an-order
 
 
