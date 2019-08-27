@@ -227,7 +227,6 @@ public class NovadaxApiClinet {
             Request request = builder.build();
             Response response = client.newCall(request).execute();
             String bodyString = response.body().string();
-            System.out.println("原始数据:"+bodyString);
             return gson.fromJson(bodyString, ref.getType());
         } catch (IOException e) {
             throw new ApiException(e);
