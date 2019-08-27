@@ -1,6 +1,7 @@
 package com.novadax.business.api;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.novadax.business.exception.ApiException;
 import com.novadax.business.request.*;
@@ -161,10 +162,10 @@ public class NovadaxApiClinet {
      *
      * @return List of symbols.
      */
-    public List<TransactionSymbol> getOrderList(ApiTransactionOrderFilterRequest request) {
+    public List<ApiTransactionOrderRecordResponse> getOrderList(ApiTransactionOrderFilterRequest request) {
         Map<String, String> stringObjectMap = objectToMap(request);
-        ApiResponse<List<TransactionSymbol>> resp =
-                get("/v1/orders/list", stringObjectMap, new TypeToken<ApiResponse<List<TransactionSymbol>>>() {
+        ApiResponse<List<ApiTransactionOrderRecordResponse>> resp =
+                get("/v1/orders/list", stringObjectMap, new TypeToken<ApiResponse<List<ApiTransactionOrderRecordResponse>>>() {
                 });
         return resp.checkAndReturn();
     }
@@ -227,8 +228,13 @@ public class NovadaxApiClinet {
             Request request = builder.build();
             Response response = client.newCall(request).execute();
             String bodyString = response.body().string();
+            ApiResponse api = gson.fromJson(bodyString, new TypeToken<ApiResponse<Object>>() {
+            }.getType());
+            if(!api.code.equals("A10000")){
+                throw new ApiException(api.code, api.message);
+            }
             return gson.fromJson(bodyString, ref.getType());
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new ApiException(e);
         }
     }

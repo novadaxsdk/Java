@@ -30,7 +30,7 @@ public class ApiClientTest {
         placeRequest.type = TransactionOrderTypeEnum.LIMIT;
         placeRequest.side = TransactionOrderSideEnum.BUY;
         placeRequest.price = new BigDecimal("40000");
-        placeRequest.amount = new BigDecimal("0.01");
+        placeRequest.amount = new BigDecimal("0.001");
         ApiTransactionOrderRecordResponse order = novadaxApiClinet.createOrder(placeRequest);
         System.out.println(new Gson().toJson(order));
     }
@@ -43,10 +43,10 @@ public class ApiClientTest {
     }
 
     @Test
-    public void getOrederList(){
+    public void getOrderList(){
         ApiTransactionOrderFilterRequest request = new ApiTransactionOrderFilterRequest();
         request.symbol= "BTC_BRL";
-        List<TransactionSymbol> orderList = novadaxApiClinet.getOrderList(request);
+        List<ApiTransactionOrderRecordResponse> orderList = novadaxApiClinet.getOrderList(request);
         System.out.println(new Gson().toJson(orderList));
     }
 
