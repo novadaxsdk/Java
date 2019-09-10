@@ -14,7 +14,7 @@ The SDK supports both synchronous
   - [Create client](#create-client)
 - [Usage](#Usage)
   - [example](#example)
-  - [Errir handling](error-handling)
+  - [Error handling](error-handling)
 
 - [Request example](#Request-example)
 
