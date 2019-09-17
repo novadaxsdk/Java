@@ -82,7 +82,7 @@ List<Symbol> symbols = novadaxApiClinet.getSymbols();
 In error case, such as you set the invalid orderId to ```cancelOrder()```. The ```ApiException``` will be thrown. See below example:
 
 ```java
-try {
+    try {
             ApiCancelOrderResponse apiCancelOrderResponse
                     = novadaxApiClinet.cancelOrder("610563954179051520");
             System.out.println(new Gson().toJson(apiCancelOrderResponse));
@@ -92,7 +92,7 @@ try {
         }
 ```
 
-##Request-example
+## Request-example
 
 https://doc.novadax.com/en-US/?shell#cancel-an-order
 
