@@ -6,6 +6,7 @@ import com.novadax.business.enums.TransactionOrderSideEnum;
 import com.novadax.business.enums.TransactionOrderTypeEnum;
 import com.novadax.business.request.*;
 import com.novadax.business.response.*;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -22,9 +23,8 @@ public class ApiClientTest {
     NovadaxApiClinet novadaxApiClinet = new NovadaxApiClinet(access_key, secret_key);
 
 
-
     @Test
-    public void createOrder(){
+    public void createOrder() {
         TransactionOrderPlaceRequest placeRequest = new TransactionOrderPlaceRequest();
         placeRequest.symbol = "BTC_BRL";
         placeRequest.type = TransactionOrderTypeEnum.LIMIT;
@@ -36,40 +36,40 @@ public class ApiClientTest {
     }
 
     @Test
-    public void symbols(){
+    public void symbols() {
         NovadaxApiClinet novadaxApiClinet = new NovadaxApiClinet(access_key, secret_key);
         List<Symbol> symbols = novadaxApiClinet.getSymbols();
         System.out.println(new Gson().toJson(symbols));
     }
 
     @Test
-    public void getOrderList(){
+    public void getOrderList() {
         ApiTransactionOrderFilterRequest request = new ApiTransactionOrderFilterRequest();
-        request.symbol= "BTC_BRL";
+        request.symbol = "BTC_BRL";
         List<ApiTransactionOrderRecordResponse> orderList = novadaxApiClinet.getOrderList(request);
         System.out.println(new Gson().toJson(orderList));
     }
 
     @Test
-    public void getTimestamp(){
+    public void getTimestamp() {
         Long timestamp = novadaxApiClinet.getTimestamp();
         System.out.println(timestamp);
     }
 
     @Test
-    public void getTickers(){
+    public void getTickers() {
         List<TickerResponse> tickers = novadaxApiClinet.getTickers();
         System.out.println(new Gson().toJson(tickers));
     }
 
     @Test
-    public void getTicker(){
+    public void getTicker() {
         TickerResponse ticker = novadaxApiClinet.getTicker("BTC_BRL");
         System.out.println(new Gson().toJson(ticker));
     }
 
     @Test
-    public void getDepth(){
+    public void getDepth() {
         ApiDepthRequest apiDepthRequest = new ApiDepthRequest();
         apiDepthRequest.symbol = "BTC_BRL";
         apiDepthRequest.limit = 5;
@@ -78,7 +78,7 @@ public class ApiClientTest {
     }
 
     @Test
-    public void getTrades(){
+    public void getTrades() {
         ApiTransactionTradeFilterRequest apiTransactionTradeFilterRequest = new ApiTransactionTradeFilterRequest();
         apiTransactionTradeFilterRequest.symbol = "BTC_BRL";
         apiTransactionTradeFilterRequest.limit = 5;
@@ -87,26 +87,32 @@ public class ApiClientTest {
     }
 
     @Test
-    public void cancelOrder(){
+    public void cancelOrder() {
         ApiCancelOrderResponse apiCancelOrderResponse = novadaxApiClinet.cancelOrder("610563954179051520");
         System.out.println(new Gson().toJson(apiCancelOrderResponse));
     }
 
     @Test
-    public void getOrderDetail(){
+    public void getOrderDetail() {
         ApiTransactionOrderRecordResponse orderDetail = novadaxApiClinet.getOrderDetail("610563954179051520");
         System.out.println(new Gson().toJson(orderDetail));
     }
 
     @Test
-    public void getOrderTrades(){
+    public void getOrderTrades() {
         List<ApiTransactionOrderDetailResponse> orderTrades = novadaxApiClinet.getOrderTrades("608678940474609664");
         System.out.println(new Gson().toJson(orderTrades));
     }
 
     @Test
-    public void getAccount(){
-        List<ApiAccountResponse> accounts = novadaxApiClinet.getAccounts();
-        System.out.println(new Gson().toJson(accounts));
+    public void getAccount() {
+        //List<ApiAccountResponse> accounts = novadaxApiClinet.getAccounts();
+        // System.out.println(new Gson().toJson(accounts));
+        WithdrawCoinRequest request = new WithdrawCoinRequest();
+        request.setAmount("0.001");
+        request.setCode("BCH");
+        request.setWallet("....");
+        String id = novadaxApiClinet.withdrawcoin(request);
+        Assert.assertNotNull(id);
     }
 }

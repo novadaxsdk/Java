@@ -1,15 +1,14 @@
 package com.novadax.business.api;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.novadax.business.exception.ApiException;
 import com.novadax.business.request.*;
 import com.novadax.business.response.*;
 import okhttp3.*;
 
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.HashMap;
@@ -17,10 +16,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
-import java.lang.reflect.Field;
 
 /**
- *
  * @author bh
  * @date 2019/8/8
  */
@@ -64,6 +61,7 @@ public class NovadaxApiClinet {
 
     /**
      * get timestamp
+     *
      * @return
      */
     public Long getTimestamp() {
@@ -75,32 +73,38 @@ public class NovadaxApiClinet {
 
     /**
      * get all tickers
+     *
      * @return
      */
-    public List<TickerResponse> getTickers(){
-        ApiResponse<List<TickerResponse>> resp = get("/v1/market/tickers", null, new TypeToken<ApiResponse<List<TickerResponse>>>(){});
+    public List<TickerResponse> getTickers() {
+        ApiResponse<List<TickerResponse>> resp = get("/v1/market/tickers", null, new TypeToken<ApiResponse<List<TickerResponse>>>() {
+        });
         return resp.checkAndReturn();
     }
 
 
     /**
      * get one ticker
+     *
      * @return
      */
-    public TickerResponse getTicker(String symbol){
+    public TickerResponse getTicker(String symbol) {
         Map<String, String> symbolMap = Collections.singletonMap("symbol", symbol);
-        ApiResponse<TickerResponse> resp = get("/v1/market/ticker", symbolMap, new TypeToken<ApiResponse<TickerResponse>>(){});
+        ApiResponse<TickerResponse> resp = get("/v1/market/ticker", symbolMap, new TypeToken<ApiResponse<TickerResponse>>() {
+        });
         return resp.checkAndReturn();
     }
 
     /**
      * get depth
+     *
      * @param apiDepthRequest
      * @return
      */
-    public ApiTransactionMarketDepth getDepth(ApiDepthRequest apiDepthRequest){
+    public ApiTransactionMarketDepth getDepth(ApiDepthRequest apiDepthRequest) {
         Map<String, String> stringObjectMap = objectToMap(apiDepthRequest);
-        ApiResponse<ApiTransactionMarketDepth> resp = get("/v1/market/depth", stringObjectMap, new TypeToken<ApiResponse<ApiTransactionMarketDepth>>(){});
+        ApiResponse<ApiTransactionMarketDepth> resp = get("/v1/market/depth", stringObjectMap, new TypeToken<ApiResponse<ApiTransactionMarketDepth>>() {
+        });
         return resp.checkAndReturn();
 
     }
@@ -108,12 +112,14 @@ public class NovadaxApiClinet {
 
     /**
      * get trades
+     *
      * @param apiTransactionTradeFilterRequest
      * @return
      */
-    public List<ApiTransactionTradeResponse> getTrades(ApiTransactionTradeFilterRequest apiTransactionTradeFilterRequest){
+    public List<ApiTransactionTradeResponse> getTrades(ApiTransactionTradeFilterRequest apiTransactionTradeFilterRequest) {
         Map<String, String> stringObjectMap = objectToMap(apiTransactionTradeFilterRequest);
-        ApiResponse<List<ApiTransactionTradeResponse>> resp = get("/v1/market/trades", stringObjectMap, new TypeToken<ApiResponse<List<ApiTransactionTradeResponse>>>(){});
+        ApiResponse<List<ApiTransactionTradeResponse>> resp = get("/v1/market/trades", stringObjectMap, new TypeToken<ApiResponse<List<ApiTransactionTradeResponse>>>() {
+        });
         return resp.checkAndReturn();
     }
 
@@ -131,9 +137,16 @@ public class NovadaxApiClinet {
         return resp.checkAndReturn();
     }
 
+    public String withdrawcoin(WithdrawCoinRequest request) {
+        ApiResponse<String> resp = post("/v1/account/withdraw/coin", request, new TypeToken<ApiResponse<String>>() {
+        });
+        return resp.checkAndReturn();
+    }
+
 
     /**
      * cancel order
+     *
      * @param id
      * @return
      */
@@ -146,10 +159,11 @@ public class NovadaxApiClinet {
 
     /**
      * get order details
+     *
      * @param id
      * @return
      */
-    public ApiTransactionOrderRecordResponse getOrderDetail(String id){
+    public ApiTransactionOrderRecordResponse getOrderDetail(String id) {
         Map<String, String> idMap = Collections.singletonMap("id", id);
         ApiResponse<ApiTransactionOrderRecordResponse> resp = get("/v1/orders/get", idMap, new TypeToken<ApiResponse<ApiTransactionOrderRecordResponse>>() {
         });
@@ -171,7 +185,8 @@ public class NovadaxApiClinet {
     }
 
     /**
-     *get accounts
+     * get accounts
+     *
      * @return
      */
     public List<ApiAccountResponse> getAccounts() {
@@ -183,6 +198,7 @@ public class NovadaxApiClinet {
 
     /**
      * query order trades
+     *
      * @param id
      * @return
      */
@@ -230,7 +246,7 @@ public class NovadaxApiClinet {
             String bodyString = response.body().string();
             ApiResponse api = gson.fromJson(bodyString, new TypeToken<ApiResponse<Object>>() {
             }.getType());
-            if(!api.code.equals("A10000")){
+            if (!api.code.equals("A10000")) {
                 throw new ApiException(api.code, api.message);
             }
             return gson.fromJson(bodyString, ref.getType());
@@ -246,7 +262,7 @@ public class NovadaxApiClinet {
                 .build();
     }
 
-    public static String  toQueryString(Map<String, String> params) {
+    public static String toQueryString(Map<String, String> params) {
         return params.entrySet().stream()
                 .sorted(Map.Entry.comparingByKey())
                 .map(set -> urlEncode(set.getKey()) + "=" + urlEncode(set.getValue()))
@@ -269,8 +285,8 @@ public class NovadaxApiClinet {
      * @return
      * @throws IllegalAccessException
      */
-    public  Map<String, String> objectToMap(Object obj)  {
-        Map<String, String> map = new HashMap<String,String>();
+    public Map<String, String> objectToMap(Object obj) {
+        Map<String, String> map = new HashMap<String, String>();
         Class<?> clazz = obj.getClass();
         for (Field field : clazz.getDeclaredFields()) {
             field.setAccessible(true);
@@ -281,7 +297,7 @@ public class NovadaxApiClinet {
             } catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
-            if(value != null){
+            if (value != null) {
                 map.put(fieldName, value.toString());
             }
         }
