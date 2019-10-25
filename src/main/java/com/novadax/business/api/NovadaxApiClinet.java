@@ -156,6 +156,19 @@ public class NovadaxApiClinet {
         return resp.checkAndReturn();
     }
 
+    /**
+     * get order fill
+     * @param id
+     * @return
+     */
+    public List<ApiTransactionOrderDetailResponse> getOrderFill(String id){
+        Map<String, String> idMap = Collections.singletonMap("id", id);
+        ApiResponse<List<ApiTransactionOrderDetailResponse>> resp = get("/v1/orders/fill", idMap, new TypeToken<ApiResponse<List<ApiTransactionOrderDetailResponse>>>() {
+        });
+        return resp.checkAndReturn();
+    }
+
+
 
     /**
      * get order list

@@ -17,8 +17,8 @@ import java.util.List;
 
 public class ApiClientTest {
 
-    static String access_key = "";
-    static String secret_key = "";
+    static String access_key = "1";
+    static String secret_key = "1";
     NovadaxApiClinet novadaxApiClinet = new NovadaxApiClinet(access_key, secret_key);
 
 
@@ -96,6 +96,12 @@ public class ApiClientTest {
     public void getOrderDetail(){
         ApiTransactionOrderRecordResponse orderDetail = novadaxApiClinet.getOrderDetail("610563954179051520");
         System.out.println(new Gson().toJson(orderDetail));
+    }
+
+    @Test
+    public void getOrderFill(){
+        List<ApiTransactionOrderDetailResponse> orderFill = novadaxApiClinet.getOrderFill("610563954179051520");
+        System.out.println(new Gson().toJson(orderFill));
     }
 
     @Test
