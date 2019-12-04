@@ -18,8 +18,9 @@ import java.util.List;
 
 public class ApiClientTest {
 
-    static String access_key = "1";
-    static String secret_key = "1";
+    static String access_key = "61f8ea7d-ae85-4a2b-a3a2-32463b9da725";
+    static String secret_key = "vV7Se0lenkEgrPtXaG9kdktLNHTMjMWt";
+
     NovadaxApiClinet novadaxApiClinet = new NovadaxApiClinet(access_key, secret_key);
 
 
@@ -99,13 +100,13 @@ public class ApiClientTest {
     }
 
     @Test
-    public void getOrderFill(){
+    public void getOrderFill() {
         List<ApiTransactionOrderDetailResponse> orderFill = novadaxApiClinet.getOrderFill("610563954179051520");
         System.out.println(new Gson().toJson(orderFill));
     }
 
     @Test
-    public void getOrderTrades(){
+    public void getOrderTrades() {
         List<ApiTransactionOrderDetailResponse> orderTrades = novadaxApiClinet.getOrderTrades("608678940474609664");
         System.out.println(new Gson().toJson(orderTrades));
     }
@@ -120,5 +121,34 @@ public class ApiClientTest {
         request.setWallet("....");
         String id = novadaxApiClinet.withdrawcoin(request);
         Assert.assertNotNull(id);
+    }
+
+    @Test
+    public void getSubs() {
+        // subs
+        List<ApiSubResponse> subs = novadaxApiClinet.getSubs();
+        System.out.println(new Gson().toJson(subs));
+
+        // sub-balance
+        String subId = "CA648855702269333504";
+        List<ApiSubBalanceResponse> sb = novadaxApiClinet.getSubBalance(subId);
+        System.out.println(new Gson().toJson(sb));
+
+        // sub-record
+        List<ApiSubTransferResponse> st = novadaxApiClinet.getSubTransfer(subId);
+        System.out.println(new Gson().toJson(st));
+
+    }
+
+    @Test
+    public void subTransfer() {
+        SubTranferRequest request = new SubTranferRequest();
+        request.setSubId("CA648856083527372800");
+        request.setAssetCode("BTC");
+        request.setTransferAmount(new BigDecimal("0.52"));
+        request.setTransferType("master-transfer-out");
+        int id = novadaxApiClinet.subTransfer(request);
+        System.out.println(id);
+
     }
 }
