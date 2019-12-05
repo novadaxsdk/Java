@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  */
 public class ApiSubTransferResponse implements Serializable {
     private String subId;
-    private BigDecimal amount;
+    private String amount;
     private String currency;
     private String state;
     private String type;
