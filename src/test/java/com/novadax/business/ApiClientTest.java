@@ -143,6 +143,7 @@ public class ApiClientTest {
 
     @Test
     public void subTransfer() {
+        // sub-transfer
         SubTranferRequest request = new SubTranferRequest();
         request.setSubId("CA648856083527372800");
         request.setAssetCode("BTC");

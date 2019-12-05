@@ -10,6 +10,6 @@ import java.math.BigDecimal;
  * @date: 2019/12/4-19:05
  */
 public class ApiSubBalanceResponse implements Serializable {
-    private BigDecimal balance;
+    private String balance;
     private String currency;
 }
