@@ -1,6 +1,7 @@
 package com.novadax.business.response;
 
 
+import com.google.gson.Gson;
 import com.novadax.business.exception.ApiException;
 
 public class ApiResponse<T> {
@@ -13,6 +14,6 @@ public class ApiResponse<T> {
         if ("A10000".equals(code)) {
             return data;
         }
-        throw new ApiException(code, message);
+        throw new ApiException("code:"+code+", message:"+message);
     }
 }
