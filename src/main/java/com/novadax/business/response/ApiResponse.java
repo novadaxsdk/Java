@@ -9,7 +9,7 @@ public class ApiResponse<T> {
     public String message;
     public T data;
 
-    public T checkAndReturn() {
+    public T checkAndReturn() throws ApiException {
         if ("A10000".equals(code)) {
             return data;
         }

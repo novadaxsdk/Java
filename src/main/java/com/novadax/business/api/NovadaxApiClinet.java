@@ -237,6 +237,8 @@ public class NovadaxApiClinet {
     <T> T call(String method, String uri, Object object, Map<String, String> params,
                TypeToken<T> ref) {
         ApiSignature sign = new ApiSignature();
+        ApiResponse api;
+        String bodyString;
         try {
             Request.Builder builder = null;
             String bodyStr = null;
@@ -256,16 +258,16 @@ public class NovadaxApiClinet {
 
             Request request = builder.build();
             Response response = client.newCall(request).execute();
-            String bodyString = response.body().string();
-            ApiResponse api = gson.fromJson(bodyString, new TypeToken<ApiResponse<Object>>() {
+            bodyString = response.body().string();
+            api = gson.fromJson(bodyString, new TypeToken<ApiResponse<Object>>() {
             }.getType());
-            if (!api.code.equals("A10000")) {
-                throw new ApiException(api.code, api.message);
-            }
-            return gson.fromJson(bodyString, ref.getType());
         } catch (Exception e) {
             throw new ApiException(e);
         }
+        if (!api.code.equals("A10000")) {
+            throw new ApiException(bodyString);
+        }
+        return gson.fromJson(bodyString, ref.getType());
     }
 
 

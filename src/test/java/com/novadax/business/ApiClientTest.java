@@ -121,4 +121,5 @@ public class ApiClientTest {
         String id = novadaxApiClinet.withdrawcoin(request);
         Assert.assertNotNull(id);
     }
+
 }

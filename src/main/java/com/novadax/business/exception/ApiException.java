@@ -6,16 +6,12 @@ package com.novadax.business.exception;
  */
 public class ApiException extends RuntimeException{
 
-    final String errCode;
-
-    public ApiException(String errCode, String errMsg) {
-        super(errMsg);
-        this.errCode = errCode;
-    }
-
     public ApiException(Exception e) {
         super(e);
-        this.errCode = e.getClass().getName();
+    }
+
+    public ApiException(String errMsg){
+        super(errMsg);
     }
 
 }
