@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  * @date 2019/8/8
  */
 public class NovadaxApiClinet {
-    static final String API_URL = "https://api.novadax.com";
+    static final String API_URL = "https://stage04-api.novadax.com";
     static final MediaType JSON = MediaType.parse("application/json");
     static final OkHttpClient client = createOkHttpClient();
     static final int CONN_TIMEOUT = 5;
@@ -144,6 +144,12 @@ public class NovadaxApiClinet {
     }
 
 
+    public Integer subTransfer(SubTranferRequest request) {
+        ApiResponse<Integer> resp = post("/v1/account/subs/transfer", request, new TypeToken<ApiResponse<Integer>>() {
+        });
+        return resp.checkAndReturn();
+    }
+
     /**
      * cancel order
      *
@@ -172,16 +178,16 @@ public class NovadaxApiClinet {
 
     /**
      * get order fill
+     *
      * @param id
      * @return
      */
-    public List<ApiTransactionOrderDetailResponse> getOrderFill(String id){
+    public List<ApiTransactionOrderDetailResponse> getOrderFill(String id) {
         Map<String, String> idMap = Collections.singletonMap("id", id);
         ApiResponse<List<ApiTransactionOrderDetailResponse>> resp = get("/v1/orders/fill", idMap, new TypeToken<ApiResponse<List<ApiTransactionOrderDetailResponse>>>() {
         });
         return resp.checkAndReturn();
     }
-
 
 
     /**
@@ -208,6 +214,28 @@ public class NovadaxApiClinet {
                 });
         return resp.checkAndReturn();
     }
+
+    public List<ApiSubResponse> getSubs() {
+        ApiResponse<List<ApiSubResponse>> resp =
+                get("/v1/account/subs", null, new TypeToken<ApiResponse<List<ApiSubResponse>>>() {
+                });
+        return resp.checkAndReturn();
+    }
+
+    public List<ApiSubBalanceResponse> getSubBalance(String subId) {
+        ApiResponse<List<ApiSubBalanceResponse>> resp =
+                get("/v1/account/subs/" + subId + "/balance", null, new TypeToken<ApiResponse<List<ApiSubBalanceResponse>>>() {
+                });
+        return resp.checkAndReturn();
+    }
+
+    public List<ApiSubTransferResponse> getSubTransfer(String subId) {
+        ApiResponse<List<ApiSubTransferResponse>> resp =
+                get("/v1/account/subs/" + subId + "/transfer-record", null, new TypeToken<ApiResponse<List<ApiSubTransferResponse>>>() {
+                });
+        return resp.checkAndReturn();
+    }
+
 
     /**
      * query order trades
@@ -318,6 +346,7 @@ public class NovadaxApiClinet {
         }
         return map;
     }
+
 
 }
 

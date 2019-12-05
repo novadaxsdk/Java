@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 
 public class TransactionOrderPlaceRequest implements Serializable {
 
+    public String accountId;
+
     public String symbol;
 
     public TransactionOrderTypeEnum type;
