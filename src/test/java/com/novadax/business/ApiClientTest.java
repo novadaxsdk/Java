@@ -113,14 +113,17 @@ public class ApiClientTest {
 
     @Test
     public void getAccount() {
-        //List<ApiAccountResponse> accounts = novadaxApiClinet.getAccounts();
-        // System.out.println(new Gson().toJson(accounts));
+        List<ApiAccountResponse> accounts = novadaxApiClinet.getAccounts();
+        System.out.println(new Gson().toJson(accounts));
+
+        /*
         WithdrawCoinRequest request = new WithdrawCoinRequest();
         request.setAmount("0.001");
         request.setCode("BCH");
         request.setWallet("....");
         String id = novadaxApiClinet.withdrawcoin(request);
         Assert.assertNotNull(id);
+        */
     }
 
 
