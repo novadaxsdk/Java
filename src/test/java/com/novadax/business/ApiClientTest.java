@@ -6,7 +6,6 @@ import com.novadax.business.enums.TransactionOrderSideEnum;
 import com.novadax.business.enums.TransactionOrderTypeEnum;
 import com.novadax.business.request.*;
 import com.novadax.business.response.*;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.math.BigDecimal;

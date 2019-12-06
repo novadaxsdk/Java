@@ -210,7 +210,7 @@ public class NovadaxApiClinet {
      */
     public List<ApiAccountResponse> getAccounts() {
         ApiResponse<List<ApiAccountResponse>> resp =
-                get("/v1/account/getBalance", null, new TypeToken<ApiResponse<List<ApiAccountResponse>>>() {
+                get("/v1/account/balance", null, new TypeToken<ApiResponse<List<ApiAccountResponse>>>() {
                 });
         return resp.checkAndReturn();
     }
@@ -233,7 +233,7 @@ public class NovadaxApiClinet {
     public List<ApiSubTransferResponse> getSubTransfer(String subId) {
         Map<String, String> params = Collections.singletonMap("subId", subId);
         ApiResponse<List<ApiSubTransferResponse>> resp =
-                get("/v1/account/subs/transfer-record", params, new TypeToken<ApiResponse<List<ApiSubTransferResponse>>>() {
+                get("/v1/account/subs/transfer/record", params, new TypeToken<ApiResponse<List<ApiSubTransferResponse>>>() {
                 });
         return resp.checkAndReturn();
     }
