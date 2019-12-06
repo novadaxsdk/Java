@@ -8,9 +8,9 @@ import java.math.BigDecimal;
 
 public class ApiTransactionOrderDetailResponse implements Serializable {
 
-    public Long id;
+    public String id;
 
-    public Long orderId;
+    public String orderId;
 
     public String symbol;
 

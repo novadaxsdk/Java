@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 
 public class ApiTransactionOrderRecordResponse implements Serializable {
 
-    public Long id;
+    public String id;
 
     public String symbol;
 
