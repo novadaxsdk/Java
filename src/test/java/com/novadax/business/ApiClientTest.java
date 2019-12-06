@@ -17,8 +17,8 @@ import java.util.List;
 
 public class ApiClientTest {
 
-    static String access_key = "61f8ea7d-ae85-4a2b-a3a2-32463b9da725";
-    static String secret_key = "vV7Se0lenkEgrPtXaG9kdktLNHTMjMWt";
+    static String access_key = "";
+    static String secret_key = "";
 
     NovadaxApiClinet novadaxApiClinet = new NovadaxApiClinet(access_key, secret_key);
 
