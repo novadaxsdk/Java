@@ -7,6 +7,8 @@ import java.io.Serializable;
 
 public class ApiTransactionOrderFilterRequest implements Serializable {
 
+    public String accountId;
+
     public String symbol;
 
     public String status;
