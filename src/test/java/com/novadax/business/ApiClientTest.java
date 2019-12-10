@@ -17,6 +17,7 @@ import java.util.List;
 public class ApiClientTest {
 
     private Gson gson = new GsonBuilder()
+            .setPrettyPrinting()
             .serializeNulls()
             .create();
 
@@ -61,7 +62,7 @@ public class ApiClientTest {
     @Test
     public void getTickers() {
         List<MarketTickerResponse> tickers = novadaxApiClient.getTickers();
-        System.out.println(new Gson().toJson(tickers));
+        System.out.println(gson.toJson(tickers));
     }
 
     @Test
@@ -90,25 +91,25 @@ public class ApiClientTest {
 
     @Test
     public void cancelOrder() {
-        OrderCancelResponse apiCancelOrderResponse = novadaxApiClient.cancelOrder("610563954179051520");
+        OrderCancelResponse apiCancelOrderResponse = novadaxApiClient.cancelOrder("654021124523479040");
         System.out.println(gson.toJson(apiCancelOrderResponse));
     }
 
     @Test
     public void getOrderDetail() {
-        OrderRecordResponse orderDetail = novadaxApiClient.getOrderDetail("610563954179051520");
+        OrderRecordResponse orderDetail = novadaxApiClient.getOrderDetail("654021124523479040");
         System.out.println(gson.toJson(orderDetail));
     }
 
     @Test
     public void getOrderFill() {
-        List<OrderDetailResponse> orderFill = novadaxApiClient.getOrderFill("610563954179051520");
+        List<OrderDetailResponse> orderFill = novadaxApiClient.getOrderFill("654021124523479040");
         System.out.println(gson.toJson(orderFill));
     }
 
     @Test
     public void getOrderTrades() {
-        List<OrderDetailResponse> orderTrades = novadaxApiClient.getOrderTrades("608678940474609664");
+        List<OrderDetailResponse> orderTrades = novadaxApiClient.getOrderTrades("654021124523479040");
         System.out.println(gson.toJson(orderTrades));
     }
 

@@ -247,7 +247,7 @@ public class NovadaxApiClient {
      */
     public List<OrderDetailResponse> getOrderTrades(String id) {
         Map<String, String> idMap = Collections.singletonMap("id", id);
-        BaseResponse<List<OrderDetailResponse>> resp = get("/v1/orders/get", idMap, new TypeToken<BaseResponse<List<OrderDetailResponse>>>() {
+        BaseResponse<List<OrderDetailResponse>> resp = get("/v1/orders/fill", idMap, new TypeToken<BaseResponse<List<OrderDetailResponse>>>() {
         });
         return resp.checkAndReturn();
     }
