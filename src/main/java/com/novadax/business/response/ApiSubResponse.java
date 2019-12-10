@@ -11,7 +11,7 @@ import java.io.Serializable;
 
 public class ApiSubResponse implements Serializable {
     private String subId;
-    private String bussType;
+    // private String bussType;
     private String state;
     private String subAccount;
     private String subIdentify;
