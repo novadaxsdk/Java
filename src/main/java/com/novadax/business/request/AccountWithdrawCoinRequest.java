@@ -2,13 +2,12 @@ package com.novadax.business.request;
 
 import java.io.Serializable;
 
-public class WithdrawCoinRequest implements Serializable {
+public class AccountWithdrawCoinRequest implements Serializable {
 
     private String amount;
     private String code;
     private String wallet;
     private String tag;
-
 
     public String getAmount() {
         return amount;

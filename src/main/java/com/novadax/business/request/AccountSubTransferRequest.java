@@ -9,7 +9,7 @@ import java.math.BigDecimal;
  * @description:
  * @date: 2019/12/4-19:13
  */
-public class SubTranferRequest implements Serializable {
+public class AccountSubTransferRequest implements Serializable {
     private String subId;
     private String currency;
     private BigDecimal transferAmount;

@@ -9,7 +9,15 @@ import java.math.BigDecimal;
  * @description:
  * @date: 2019/12/4-19:05
  */
-public class ApiSubBalanceResponse implements Serializable {
+public class AccountSubBalanceResponse implements Serializable {
     private String balance;
     private String currency;
+
+    public String getBalance() {
+        return balance;
+    }
+
+    public void setBalance(String balance) {
+        this.balance = balance;
+    }
 }
