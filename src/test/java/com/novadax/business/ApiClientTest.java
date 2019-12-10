@@ -152,7 +152,7 @@ public class ApiClientTest {
         // sub-transfer
         SubTranferRequest request = new SubTranferRequest();
         request.setSubId("CA6521740260341");
-        request.setAssetCode("BTC");
+        request.setCurrency("BTC");
         request.setTransferAmount(new BigDecimal("0.52"));
         request.setTransferType("master-transfer-in");
         int id = novadaxApiClinet.subTransfer(request);

@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  */
 public class SubTranferRequest implements Serializable {
     private String subId;
-    private String assetCode;
+    private String currency;
     private BigDecimal transferAmount;
     private String transferType;
 
@@ -23,12 +23,12 @@ public class SubTranferRequest implements Serializable {
         this.subId = subId;
     }
 
-    public String getAssetCode() {
-        return assetCode;
+    public String getCurrency() {
+        return currency;
     }
 
-    public void setAssetCode(String assetCode) {
-        this.assetCode = assetCode;
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 
     public BigDecimal getTransferAmount() {
