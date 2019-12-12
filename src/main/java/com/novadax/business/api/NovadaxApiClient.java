@@ -210,7 +210,7 @@ public class NovadaxApiClient {
      */
     public List<AccountResponse> getAccounts() {
         BaseResponse<List<AccountResponse>> resp =
-                get("/v1/account/balance", null, new TypeToken<BaseResponse<List<AccountResponse>>>() {
+                get("/v1/account/getBalance", null, new TypeToken<BaseResponse<List<AccountResponse>>>() {
                 });
         return resp.checkAndReturn();
     }
