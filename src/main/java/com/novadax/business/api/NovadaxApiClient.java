@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  * @date 2019/8/8
  */
 public class NovadaxApiClient {
-    static final String API_URL = "https://api.novadax.com";
+    static final String API_URL = "https://stage04-api.novadax.com";
     static final MediaType JSON = MediaType.parse("application/json");
     static final OkHttpClient client = createOkHttpClient();
     static final int CONN_TIMEOUT = 5;
@@ -46,6 +46,18 @@ public class NovadaxApiClient {
         this.accessKeySecret = accessKeySecret;
     }
 
+    /**
+     * query symbols
+     *
+     * @return List of symbols.
+     */
+    public CommonSymbolResponse getSymbol(String symbol) {
+        Map<String, String> symbolMap = Collections.singletonMap("symbol", symbol);
+        BaseResponse<CommonSymbolResponse> resp =
+                get("/v1/common/symbol", symbolMap, new TypeToken<BaseResponse<CommonSymbolResponse>>() {
+                });
+        return resp.checkAndReturn();
+    }
 
     /**
      * query symbols
