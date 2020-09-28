@@ -10,10 +10,6 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.util.List;
 
-/**
- * Created by bh on 2019/8/12.
- */
-
 public class ApiClientTest {
 
     private Gson gson = new GsonBuilder()
@@ -21,8 +17,8 @@ public class ApiClientTest {
             .serializeNulls()
             .create();
 
-    private String access_key = "-";
-    private String secret_key = "-";
+    private String access_key = "79e386ae-cef3-457b-924e-9ffe6d6a61b7";
+    private String secret_key = "lTtlKCvFsyXc2YVCnTxwytTy1zOyOVfU";
 
     private NovadaxApiClient novadaxApiClient = new NovadaxApiClient(access_key, secret_key);
 

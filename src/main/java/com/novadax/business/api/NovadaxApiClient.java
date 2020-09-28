@@ -203,14 +203,16 @@ public class NovadaxApiClient {
         return resp.checkAndReturn();
     }
 
-    /**
-     * get accounts
-     *
-     * @return
-     */
     public List<AccountResponse> getAccounts() {
         BaseResponse<List<AccountResponse>> resp =
                 get("/v1/account/getBalance", null, new TypeToken<BaseResponse<List<AccountResponse>>>() {
+                });
+        return resp.checkAndReturn();
+    }
+
+    public Map getAccountsCurrent() {
+        BaseResponse<Map> resp =
+                get("/v1/account/getBalance/current", null, new TypeToken<BaseResponse<Map>>() {
                 });
         return resp.checkAndReturn();
     }
