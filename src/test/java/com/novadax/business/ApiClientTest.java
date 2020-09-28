@@ -35,10 +35,15 @@ public class ApiClientTest {
     }
 
     @Test
-    public void symbols() {
-        NovadaxApiClient novadaxApiClient = new NovadaxApiClient(access_key, secret_key);
+    public void getSymbols() {
         List<CommonSymbolResponse> symbols = novadaxApiClient.getSymbols();
         System.out.println(gson.toJson(symbols));
+    }
+
+    @Test
+    public void getSymbol() {
+        CommonSymbolResponse symbol = novadaxApiClient.getSymbol("BTC_BRL");
+        System.out.println(gson.toJson(symbol));
     }
 
     @Test

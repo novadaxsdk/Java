@@ -46,6 +46,18 @@ public class NovadaxApiClient {
         this.accessKeySecret = accessKeySecret;
     }
 
+    /**
+     * query symbols
+     *
+     * @return List of symbols.
+     */
+    public CommonSymbolResponse getSymbol(String symbol) {
+        Map<String, String> symbolMap = Collections.singletonMap("symbol", symbol);
+        BaseResponse<CommonSymbolResponse> resp =
+                get("/v1/common/symbol", symbolMap, new TypeToken<BaseResponse<CommonSymbolResponse>>() {
+                });
+        return resp.checkAndReturn();
+    }
 
     /**
      * query symbols
