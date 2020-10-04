@@ -222,6 +222,13 @@ public class NovadaxApiClient {
         return resp.checkAndReturn();
     }
 
+    public List<DepositWithdrawResponse> walletRecord(DepositWithdrawRequest request) {
+        Map<String, String> paramsMap = objectToMap(request);
+        BaseResponse<List<DepositWithdrawResponse>> resp = get("/v1/wallet/query/deposit-withdraw", paramsMap, new TypeToken<BaseResponse<List<DepositWithdrawResponse>>>() {
+        });
+        return resp.checkAndReturn();
+    }
+
     public Map getAccountsCurrent() {
         BaseResponse<Map> resp =
                 get("/v1/account/getBalance/current", null, new TypeToken<BaseResponse<Map>>() {

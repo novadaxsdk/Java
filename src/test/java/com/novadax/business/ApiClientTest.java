@@ -17,8 +17,8 @@ public class ApiClientTest {
             .serializeNulls()
             .create();
 
-    private String access_key = "79e386ae-cef3-457b-924e-9ffe6d6a61b7";
-    private String secret_key = "lTtlKCvFsyXc2YVCnTxwytTy1zOyOVfU";
+    private String access_key = "";
+    private String secret_key = "";
 
     private NovadaxApiClient novadaxApiClient = new NovadaxApiClient(access_key, secret_key);
 
@@ -157,6 +157,15 @@ public class ApiClientTest {
         request.setTransferType("master-transfer-in");
         int id = novadaxApiClient.subTransfer(request);
         System.out.println(id);
+
+    }
+
+    @Test
+    public void walletRecord() {
+        // sub-transfer
+        DepositWithdrawRequest request = new DepositWithdrawRequest();
+        List<DepositWithdrawResponse> responseList = novadaxApiClient.walletRecord(request);
+        System.out.println(gson.toJson(responseList));
 
     }
 }
