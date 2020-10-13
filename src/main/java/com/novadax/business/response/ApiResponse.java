@@ -1,7 +1,6 @@
 package com.novadax.business.response;
 
 
-import com.google.gson.Gson;
 import com.novadax.business.exception.ApiException;
 
 public class ApiResponse<T> {
