@@ -168,4 +168,15 @@ public class ApiClientTest {
         System.out.println(gson.toJson(responseList));
 
     }
+
+
+    @Test
+    public void testKline(){
+        MarketKlineRequest marketKlineRequest = new MarketKlineRequest();
+        marketKlineRequest.setFrom(1602406646l);
+        marketKlineRequest.setTo(1602579446l);
+        marketKlineRequest.setSymbol("BTC_BRL");
+        marketKlineRequest.setkLineTimeUnitEnum("ONE_MIN");
+        System.out.println(novadaxApiClient.getKline(marketKlineRequest));
+    }
 }

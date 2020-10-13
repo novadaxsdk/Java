@@ -274,6 +274,21 @@ public class NovadaxApiClient {
     }
 
 
+
+    /**
+     * get kline
+     *
+     * @return
+     */
+    public List<ApiMarketKlineResponse> getKline(MarketKlineRequest request) {
+        Map<String, String> stringObjectMap = objectToMap(request);
+        BaseResponse<List<ApiMarketKlineResponse>> resp =
+                get("/v1/market/kline/history", stringObjectMap, new TypeToken<BaseResponse<List<ApiMarketKlineResponse>>>() {
+                });
+        return resp.checkAndReturn();
+    }
+
+
     <T> T get(String uri, Map<String, String> params, TypeToken<T> ref) {
         if (params == null) {
             params = new HashMap<>();
