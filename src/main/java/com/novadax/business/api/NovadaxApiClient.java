@@ -21,8 +21,8 @@ import java.util.stream.Collectors;
  * @author bh
  * @date 2019/8/8
  */
-public class NovadaxApiClinet {
-    static final String API_URL = "https://stage04-api.novadax.com";
+public class NovadaxApiClient {
+    static final String API_URL = "https://api.novadax.com";
     static final MediaType JSON = MediaType.parse("application/json");
     static final OkHttpClient client = createOkHttpClient();
     static final int CONN_TIMEOUT = 5;
@@ -41,20 +41,32 @@ public class NovadaxApiClinet {
      * @param accessKeyId     AccessKeyId
      * @param accessKeySecret AccessKeySecret
      */
-    public NovadaxApiClinet(String accessKeyId, String accessKeySecret) {
+    public NovadaxApiClient(String accessKeyId, String accessKeySecret) {
         this.accessKeyId = accessKeyId;
         this.accessKeySecret = accessKeySecret;
     }
-
 
     /**
      * query symbols
      *
      * @return List of symbols.
      */
-    public List<Symbol> getSymbols() {
-        ApiResponse<List<Symbol>> resp =
-                get("/v1/common/symbols", null, new TypeToken<ApiResponse<List<Symbol>>>() {
+    public CommonSymbolResponse getSymbol(String symbol) {
+        Map<String, String> symbolMap = Collections.singletonMap("symbol", symbol);
+        BaseResponse<CommonSymbolResponse> resp =
+                get("/v1/common/symbol", symbolMap, new TypeToken<BaseResponse<CommonSymbolResponse>>() {
+                });
+        return resp.checkAndReturn();
+    }
+
+    /**
+     * query symbols
+     *
+     * @return List of symbols.
+     */
+    public List<CommonSymbolResponse> getSymbols() {
+        BaseResponse<List<CommonSymbolResponse>> resp =
+                get("/v1/common/symbols", null, new TypeToken<BaseResponse<List<CommonSymbolResponse>>>() {
                 });
         return resp.checkAndReturn();
     }
@@ -65,8 +77,8 @@ public class NovadaxApiClinet {
      * @return
      */
     public Long getTimestamp() {
-        ApiResponse<Long> resp =
-                get("/v1/common/timestamp", null, new TypeToken<ApiResponse<Long>>() {
+        BaseResponse<Long> resp =
+                get("/v1/common/timestamp", null, new TypeToken<BaseResponse<Long>>() {
                 });
         return resp.checkAndReturn();
     }
@@ -76,8 +88,8 @@ public class NovadaxApiClinet {
      *
      * @return
      */
-    public List<TickerResponse> getTickers() {
-        ApiResponse<List<TickerResponse>> resp = get("/v1/market/tickers", null, new TypeToken<ApiResponse<List<TickerResponse>>>() {
+    public List<MarketTickerResponse> getTickers() {
+        BaseResponse<List<MarketTickerResponse>> resp = get("/v1/market/tickers", null, new TypeToken<BaseResponse<List<MarketTickerResponse>>>() {
         });
         return resp.checkAndReturn();
     }
@@ -88,9 +100,9 @@ public class NovadaxApiClinet {
      *
      * @return
      */
-    public TickerResponse getTicker(String symbol) {
+    public MarketTickerResponse getTicker(String symbol) {
         Map<String, String> symbolMap = Collections.singletonMap("symbol", symbol);
-        ApiResponse<TickerResponse> resp = get("/v1/market/ticker", symbolMap, new TypeToken<ApiResponse<TickerResponse>>() {
+        BaseResponse<MarketTickerResponse> resp = get("/v1/market/ticker", symbolMap, new TypeToken<BaseResponse<MarketTickerResponse>>() {
         });
         return resp.checkAndReturn();
     }
@@ -98,12 +110,12 @@ public class NovadaxApiClinet {
     /**
      * get depth
      *
-     * @param apiDepthRequest
+     * @param marketDepthRequest
      * @return
      */
-    public ApiTransactionMarketDepth getDepth(ApiDepthRequest apiDepthRequest) {
-        Map<String, String> stringObjectMap = objectToMap(apiDepthRequest);
-        ApiResponse<ApiTransactionMarketDepth> resp = get("/v1/market/depth", stringObjectMap, new TypeToken<ApiResponse<ApiTransactionMarketDepth>>() {
+    public MarketDepthResponse getDepth(MarketDepthRequest marketDepthRequest) {
+        Map<String, String> stringObjectMap = objectToMap(marketDepthRequest);
+        BaseResponse<MarketDepthResponse> resp = get("/v1/market/depth", stringObjectMap, new TypeToken<BaseResponse<MarketDepthResponse>>() {
         });
         return resp.checkAndReturn();
 
@@ -113,12 +125,12 @@ public class NovadaxApiClinet {
     /**
      * get trades
      *
-     * @param apiTransactionTradeFilterRequest
+     * @param marketTradesFilterRequest
      * @return
      */
-    public List<ApiTransactionTradeResponse> getTrades(ApiTransactionTradeFilterRequest apiTransactionTradeFilterRequest) {
-        Map<String, String> stringObjectMap = objectToMap(apiTransactionTradeFilterRequest);
-        ApiResponse<List<ApiTransactionTradeResponse>> resp = get("/v1/market/trades", stringObjectMap, new TypeToken<ApiResponse<List<ApiTransactionTradeResponse>>>() {
+    public List<MarketTradeResponse> getTrades(MarketTradesFilterRequest marketTradesFilterRequest) {
+        Map<String, String> stringObjectMap = objectToMap(marketTradesFilterRequest);
+        BaseResponse<List<MarketTradeResponse>> resp = get("/v1/market/trades", stringObjectMap, new TypeToken<BaseResponse<List<MarketTradeResponse>>>() {
         });
         return resp.checkAndReturn();
     }
@@ -130,22 +142,22 @@ public class NovadaxApiClinet {
      * @param request CreateOrderRequest object.
      * @return Order id.
      */
-    public ApiTransactionOrderRecordResponse createOrder(TransactionOrderPlaceRequest request) {
+    public OrderRecordResponse createOrder(OrderCreateRequest request) {
 
-        ApiResponse<ApiTransactionOrderRecordResponse> resp = post("/v1/orders/create", request, new TypeToken<ApiResponse<ApiTransactionOrderRecordResponse>>() {
+        BaseResponse<OrderRecordResponse> resp = post("/v1/orders/create", request, new TypeToken<BaseResponse<OrderRecordResponse>>() {
         });
         return resp.checkAndReturn();
     }
 
-    public String withdrawcoin(WithdrawCoinRequest request) {
-        ApiResponse<String> resp = post("/v1/account/withdraw/coin", request, new TypeToken<ApiResponse<String>>() {
+    public String withdrawcoin(AccountWithdrawCoinRequest request) {
+        BaseResponse<String> resp = post("/v1/account/withdraw/coin", request, new TypeToken<BaseResponse<String>>() {
         });
         return resp.checkAndReturn();
     }
 
 
-    public Integer subTransfer(SubTranferRequest request) {
-        ApiResponse<Integer> resp = post("/v1/account/subs/transfer", request, new TypeToken<ApiResponse<Integer>>() {
+    public Integer subTransfer(AccountSubTransferRequest request) {
+        BaseResponse<Integer> resp = post("/v1/account/subs/transfer", request, new TypeToken<BaseResponse<Integer>>() {
         });
         return resp.checkAndReturn();
     }
@@ -156,9 +168,9 @@ public class NovadaxApiClinet {
      * @param id
      * @return
      */
-    public ApiCancelOrderResponse cancelOrder(String id) {
+    public OrderCancelResponse cancelOrder(String id) {
         Map<String, String> idMap = Collections.singletonMap("id", id);
-        ApiResponse<ApiCancelOrderResponse> resp = post("/v1/orders/cancel", idMap, new TypeToken<ApiResponse<ApiCancelOrderResponse>>() {
+        BaseResponse<OrderCancelResponse> resp = post("/v1/orders/cancel", idMap, new TypeToken<BaseResponse<OrderCancelResponse>>() {
         });
         return resp.checkAndReturn();
     }
@@ -169,9 +181,9 @@ public class NovadaxApiClinet {
      * @param id
      * @return
      */
-    public ApiTransactionOrderRecordResponse getOrderDetail(String id) {
+    public OrderRecordResponse getOrderDetail(String id) {
         Map<String, String> idMap = Collections.singletonMap("id", id);
-        ApiResponse<ApiTransactionOrderRecordResponse> resp = get("/v1/orders/get", idMap, new TypeToken<ApiResponse<ApiTransactionOrderRecordResponse>>() {
+        BaseResponse<OrderRecordResponse> resp = get("/v1/orders/get", idMap, new TypeToken<BaseResponse<OrderRecordResponse>>() {
         });
         return resp.checkAndReturn();
     }
@@ -182,9 +194,9 @@ public class NovadaxApiClinet {
      * @param id
      * @return
      */
-    public List<ApiTransactionOrderDetailResponse> getOrderFill(String id) {
+    public List<OrderDetailResponse> getOrderFill(String id) {
         Map<String, String> idMap = Collections.singletonMap("id", id);
-        ApiResponse<List<ApiTransactionOrderDetailResponse>> resp = get("/v1/orders/fill", idMap, new TypeToken<ApiResponse<List<ApiTransactionOrderDetailResponse>>>() {
+        BaseResponse<List<OrderDetailResponse>> resp = get("/v1/orders/fill", idMap, new TypeToken<BaseResponse<List<OrderDetailResponse>>>() {
         });
         return resp.checkAndReturn();
     }
@@ -195,43 +207,54 @@ public class NovadaxApiClinet {
      *
      * @return List of symbols.
      */
-    public List<ApiTransactionOrderRecordResponse> getOrderList(ApiTransactionOrderFilterRequest request) {
+    public List<OrderRecordResponse> getOrderList(OrderFilterRequest request) {
         Map<String, String> stringObjectMap = objectToMap(request);
-        ApiResponse<List<ApiTransactionOrderRecordResponse>> resp =
-                get("/v1/orders/list", stringObjectMap, new TypeToken<ApiResponse<List<ApiTransactionOrderRecordResponse>>>() {
+        BaseResponse<List<OrderRecordResponse>> resp =
+                get("/v1/orders/list", stringObjectMap, new TypeToken<BaseResponse<List<OrderRecordResponse>>>() {
                 });
         return resp.checkAndReturn();
     }
 
-    /**
-     * get accounts
-     *
-     * @return
-     */
-    public List<ApiAccountResponse> getAccounts() {
-        ApiResponse<List<ApiAccountResponse>> resp =
-                get("/v1/account/getBalance", null, new TypeToken<ApiResponse<List<ApiAccountResponse>>>() {
+    public List<AccountResponse> getAccounts() {
+        BaseResponse<List<AccountResponse>> resp =
+                get("/v1/account/getBalance", null, new TypeToken<BaseResponse<List<AccountResponse>>>() {
                 });
         return resp.checkAndReturn();
     }
 
-    public List<ApiSubResponse> getSubs() {
-        ApiResponse<List<ApiSubResponse>> resp =
-                get("/v1/account/subs", null, new TypeToken<ApiResponse<List<ApiSubResponse>>>() {
+    public List<DepositWithdrawResponse> walletRecord(DepositWithdrawRequest request) {
+        Map<String, String> paramsMap = objectToMap(request);
+        BaseResponse<List<DepositWithdrawResponse>> resp = get("/v1/wallet/query/deposit-withdraw", paramsMap, new TypeToken<BaseResponse<List<DepositWithdrawResponse>>>() {
+        });
+        return resp.checkAndReturn();
+    }
+
+    public Map getAccountsCurrent() {
+        BaseResponse<Map> resp =
+                get("/v1/account/getBalance/current", null, new TypeToken<BaseResponse<Map>>() {
                 });
         return resp.checkAndReturn();
     }
 
-    public List<ApiSubBalanceResponse> getSubBalance(String subId) {
-        ApiResponse<List<ApiSubBalanceResponse>> resp =
-                get("/v1/account/subs/" + subId + "/balance", null, new TypeToken<ApiResponse<List<ApiSubBalanceResponse>>>() {
+    public List<AccountSubResponse> getSubs() {
+        BaseResponse<List<AccountSubResponse>> resp =
+                get("/v1/account/subs", null, new TypeToken<BaseResponse<List<AccountSubResponse>>>() {
                 });
         return resp.checkAndReturn();
     }
 
-    public List<ApiSubTransferResponse> getSubTransfer(String subId) {
-        ApiResponse<List<ApiSubTransferResponse>> resp =
-                get("/v1/account/subs/" + subId + "/transfer-record", null, new TypeToken<ApiResponse<List<ApiSubTransferResponse>>>() {
+    public List<AccountSubBalanceResponse> getSubBalance(String subId) {
+        Map<String, String> params = Collections.singletonMap("subId", subId);
+        BaseResponse<List<AccountSubBalanceResponse>> resp =
+                get("/v1/account/subs/balance", params, new TypeToken<BaseResponse<List<AccountSubBalanceResponse>>>() {
+                });
+        return resp.checkAndReturn();
+    }
+
+    public List<AccountSubTransferResponse> getSubTransfer(String subId) {
+        Map<String, String> params = Collections.singletonMap("subId", subId);
+        BaseResponse<List<AccountSubTransferResponse>> resp =
+                get("/v1/account/subs/transfer/record", params, new TypeToken<BaseResponse<List<AccountSubTransferResponse>>>() {
                 });
         return resp.checkAndReturn();
     }
@@ -243,9 +266,9 @@ public class NovadaxApiClinet {
      * @param id
      * @return
      */
-    public List<ApiTransactionOrderDetailResponse> getOrderTrades(String id) {
+    public List<OrderDetailResponse> getOrderTrades(String id) {
         Map<String, String> idMap = Collections.singletonMap("id", id);
-        ApiResponse<List<ApiTransactionOrderDetailResponse>> resp = get("/v1/orders/get", idMap, new TypeToken<ApiResponse<List<ApiTransactionOrderDetailResponse>>>() {
+        BaseResponse<List<OrderDetailResponse>> resp = get("/v1/orders/fill", idMap, new TypeToken<BaseResponse<List<OrderDetailResponse>>>() {
         });
         return resp.checkAndReturn();
     }
@@ -265,7 +288,7 @@ public class NovadaxApiClinet {
     <T> T call(String method, String uri, Object object, Map<String, String> params,
                TypeToken<T> ref) {
         ApiSignature sign = new ApiSignature();
-        ApiResponse api;
+        BaseResponse api;
         String bodyString;
         try {
             Request.Builder builder = null;
@@ -287,12 +310,12 @@ public class NovadaxApiClinet {
             Request request = builder.build();
             Response response = client.newCall(request).execute();
             bodyString = response.body().string();
-            api = gson.fromJson(bodyString, new TypeToken<ApiResponse<Object>>() {
+            api = gson.fromJson(bodyString, new TypeToken<BaseResponse<Object>>() {
             }.getType());
         } catch (Exception e) {
             throw new ApiException(e);
         }
-        if (!api.code.equals("A10000")) {
+        if (!api.getCode().equals("A10000")) {
             throw new ApiException(bodyString);
         }
         return gson.fromJson(bodyString, ref.getType());
