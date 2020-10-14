@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class MarketKlineRequest implements Serializable{
     private String symbol;
-    private String kLineTimeUnitEnum;
+    private String unit;
     private Long from;
     private Long to;
 
@@ -19,12 +19,12 @@ public class MarketKlineRequest implements Serializable{
         this.symbol = symbol;
     }
 
-    public String getkLineTimeUnitEnum() {
-        return kLineTimeUnitEnum;
+    public String getUnit() {
+        return unit;
     }
 
-    public void setkLineTimeUnitEnum(String kLineTimeUnitEnum) {
-        this.kLineTimeUnitEnum = kLineTimeUnitEnum;
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
     public Long getFrom() {
