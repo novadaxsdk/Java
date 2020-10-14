@@ -104,13 +104,19 @@ public class ApiClientTest {
 
     @Test
     public void getOrderFill() {
-        List<OrderDetailResponse> orderFill = novadaxApiClient.getOrderFill("654021124523479040");
+        List<OrderFillResponse> orderFill = novadaxApiClient.getOrderFill("654021124523479040");
         System.out.println(gson.toJson(orderFill));
     }
 
     @Test
+    public void getOrderFills() {
+        List<OrderFillResponse> orderFills = novadaxApiClient.getOrderFills(new OrderFillFilterRequest());
+        System.out.println(gson.toJson(orderFills));
+    }
+
+    @Test
     public void getOrderTrades() {
-        List<OrderDetailResponse> orderTrades = novadaxApiClient.getOrderTrades("654021124523479040");
+        List<OrderFillResponse> orderTrades = novadaxApiClient.getOrderTrades("654021124523479040");
         System.out.println(gson.toJson(orderTrades));
     }
 
