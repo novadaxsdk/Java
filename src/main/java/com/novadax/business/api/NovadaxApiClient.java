@@ -194,13 +194,24 @@ public class NovadaxApiClient {
      * @param id
      * @return
      */
-    public List<OrderDetailResponse> getOrderFill(String id) {
-        Map<String, String> idMap = Collections.singletonMap("id", id);
-        BaseResponse<List<OrderDetailResponse>> resp = get("/v1/orders/fill", idMap, new TypeToken<BaseResponse<List<OrderDetailResponse>>>() {
-        });
-        return resp.checkAndReturn();
+    public List<OrderFillResponse> getOrderFill(String id) {
+        OrderFillFilterRequest request = new OrderFillFilterRequest();
+        request.setOrderId(id);
+        return getOrderFills(request);
     }
 
+    /**
+     * get history fill
+     *
+     * @return
+     */
+    public List<OrderFillResponse> getOrderFills(OrderFillFilterRequest request) {
+        Map<String, String> stringObjectMap = objectToMap(request);
+        BaseResponse<List<OrderFillResponse>> resp =
+                get("/v1/orders/fills", stringObjectMap, new TypeToken<BaseResponse<List<OrderFillResponse>>>() {
+                });
+        return resp.checkAndReturn();
+    }
 
     /**
      * get order list
@@ -266,13 +277,12 @@ public class NovadaxApiClient {
      * @param id
      * @return
      */
-    public List<OrderDetailResponse> getOrderTrades(String id) {
+    public List<OrderFillResponse> getOrderTrades(String id) {
         Map<String, String> idMap = Collections.singletonMap("id", id);
-        BaseResponse<List<OrderDetailResponse>> resp = get("/v1/orders/fill", idMap, new TypeToken<BaseResponse<List<OrderDetailResponse>>>() {
+        BaseResponse<List<OrderFillResponse>> resp = get("/v1/orders/fill", idMap, new TypeToken<BaseResponse<List<OrderFillResponse>>>() {
         });
         return resp.checkAndReturn();
     }
-
 
 
     /**
@@ -280,10 +290,10 @@ public class NovadaxApiClient {
      *
      * @return
      */
-    public List<ApiMarketKlineResponse> getKline(MarketKlineRequest request) {
+    public List<MarketKlineResponse> getKline(MarketKlineRequest request) {
         Map<String, String> stringObjectMap = objectToMap(request);
-        BaseResponse<List<ApiMarketKlineResponse>> resp =
-                get("/v1/market/kline/history", stringObjectMap, new TypeToken<BaseResponse<List<ApiMarketKlineResponse>>>() {
+        BaseResponse<List<MarketKlineResponse>> resp =
+                get("/v1/market/kline/history", stringObjectMap, new TypeToken<BaseResponse<List<MarketKlineResponse>>>() {
                 });
         return resp.checkAndReturn();
     }

@@ -2,7 +2,7 @@ package com.novadax.business.response;
 
 import java.io.Serializable;
 
-public class OrderDetailResponse implements Serializable {
+public class OrderFillResponse implements Serializable {
 
     private String id;
     private String orderId;
@@ -10,6 +10,8 @@ public class OrderDetailResponse implements Serializable {
     private String price;
     private String amount;
     private String fee;
+    private String feeCurrency;
+    private String feeAmount;
     private String side;
     private String role;
     private Long timestamp;
@@ -60,6 +62,22 @@ public class OrderDetailResponse implements Serializable {
 
     public void setFee(String fee) {
         this.fee = fee;
+    }
+
+    public String getFeeCurrency() {
+        return feeCurrency;
+    }
+
+    public void setFeeCurrency(String feeCurrency) {
+        this.feeCurrency = feeCurrency;
+    }
+
+    public String getFeeAmount() {
+        return feeAmount;
+    }
+
+    public void setFeeAmount(String feeAmount) {
+        this.feeAmount = feeAmount;
     }
 
     public String getSide() {

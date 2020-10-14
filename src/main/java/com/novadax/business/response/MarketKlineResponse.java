@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ApiMarketKlineResponse implements Serializable{
+public class MarketKlineResponse implements Serializable{
     private static final long serialVersionUID = 764715904809312256L;
 
 
