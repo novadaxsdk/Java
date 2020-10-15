@@ -182,7 +182,7 @@ public class ApiClientTest {
         marketKlineRequest.setFrom(1602406646l);
         marketKlineRequest.setTo(1602579446l);
         marketKlineRequest.setSymbol("BTC_BRL");
-        marketKlineRequest.setkLineTimeUnitEnum("ONE_MIN");
+        marketKlineRequest.setUnit("ONE_MIN");
         System.out.println(novadaxApiClient.getKline(marketKlineRequest));
     }
 }
