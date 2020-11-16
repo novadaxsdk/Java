@@ -12,15 +12,15 @@ import java.util.List;
 
 public class ApiClientTest {
 
-    private Gson gson = new GsonBuilder()
+    private final Gson gson = new GsonBuilder()
             .setPrettyPrinting()
             .serializeNulls()
             .create();
 
-    private String access_key = "";
-    private String secret_key = "";
+    private final String accessKey = "";
+    private final String secretKey = "";
 
-    private NovadaxApiClient novadaxApiClient = new NovadaxApiClient(access_key, secret_key);
+    private final NovadaxApiClient ApiClient = new NovadaxApiClient(accessKey, secretKey);
 
     @Test
     public void createOrder() {
@@ -30,19 +30,19 @@ public class ApiClientTest {
         placeRequest.setSide("SELL");
         placeRequest.setPrice("40000");
         placeRequest.setAmount("0.12");
-        OrderRecordResponse order = novadaxApiClient.createOrder(placeRequest);
+        OrderRecordResponse order = ApiClient.createOrder(placeRequest);
         System.out.println(gson.toJson(order));
     }
 
     @Test
     public void getSymbols() {
-        List<CommonSymbolResponse> symbols = novadaxApiClient.getSymbols();
+        List<CommonSymbolResponse> symbols = ApiClient.getSymbols();
         System.out.println(gson.toJson(symbols));
     }
 
     @Test
     public void getSymbol() {
-        CommonSymbolResponse symbol = novadaxApiClient.getSymbol("BTC_BRL");
+        CommonSymbolResponse symbol = ApiClient.getSymbol("BTC_BRL");
         System.out.println(gson.toJson(symbol));
     }
 
@@ -50,25 +50,25 @@ public class ApiClientTest {
     public void getOrderList() {
         OrderFilterRequest request = new OrderFilterRequest();
         request.setSymbol("BTC_BRL");
-        List<OrderRecordResponse> orderList = novadaxApiClient.getOrderList(request);
+        List<OrderRecordResponse> orderList = ApiClient.getOrderList(request);
         System.out.println(gson.toJson(orderList));
     }
 
     @Test
     public void getTimestamp() {
-        Long timestamp = novadaxApiClient.getTimestamp();
+        Long timestamp = ApiClient.getTimestamp();
         System.out.println(timestamp);
     }
 
     @Test
     public void getTickers() {
-        List<MarketTickerResponse> tickers = novadaxApiClient.getTickers();
+        List<MarketTickerResponse> tickers = ApiClient.getTickers();
         System.out.println(gson.toJson(tickers));
     }
 
     @Test
     public void getTicker() {
-        MarketTickerResponse ticker = novadaxApiClient.getTicker("BTC_BRL");
+        MarketTickerResponse ticker = ApiClient.getTicker("BTC_BRL");
         System.out.println(gson.toJson(ticker));
     }
 
@@ -77,7 +77,7 @@ public class ApiClientTest {
         MarketDepthRequest marketDepthRequest = new MarketDepthRequest();
         marketDepthRequest.setSymbol("BTC_BRL");
         marketDepthRequest.setLimit(5);
-        MarketDepthResponse depth = novadaxApiClient.getDepth(marketDepthRequest);
+        MarketDepthResponse depth = ApiClient.getDepth(marketDepthRequest);
         System.out.println(gson.toJson(depth));
     }
 
@@ -86,43 +86,43 @@ public class ApiClientTest {
         MarketTradesFilterRequest marketTradesFilterRequest = new MarketTradesFilterRequest();
         marketTradesFilterRequest.setSymbol("BTC_BRL");
         marketTradesFilterRequest.setLimit(5);
-        List<MarketTradeResponse> trades = novadaxApiClient.getTrades(marketTradesFilterRequest);
+        List<MarketTradeResponse> trades = ApiClient.getTrades(marketTradesFilterRequest);
         System.out.println(gson.toJson(trades));
     }
 
     @Test
     public void cancelOrder() {
-        OrderCancelResponse apiCancelOrderResponse = novadaxApiClient.cancelOrder("654021124523479040");
+        OrderCancelResponse apiCancelOrderResponse = ApiClient.cancelOrder("654021124523479040");
         System.out.println(gson.toJson(apiCancelOrderResponse));
     }
 
     @Test
     public void getOrderDetail() {
-        OrderRecordResponse orderDetail = novadaxApiClient.getOrderDetail("654021124523479040");
+        OrderRecordResponse orderDetail = ApiClient.getOrderDetail("654021124523479040");
         System.out.println(gson.toJson(orderDetail));
     }
 
     @Test
     public void getOrderFill() {
-        List<OrderFillResponse> orderFill = novadaxApiClient.getOrderFill("654021124523479040");
+        List<OrderFillResponse> orderFill = ApiClient.getOrderFill("654021124523479040");
         System.out.println(gson.toJson(orderFill));
     }
 
     @Test
     public void getOrderFills() {
-        List<OrderFillResponse> orderFills = novadaxApiClient.getOrderFills(new OrderFillFilterRequest());
+        List<OrderFillResponse> orderFills = ApiClient.getOrderFills(new OrderFillFilterRequest());
         System.out.println(gson.toJson(orderFills));
     }
 
     @Test
     public void getOrderTrades() {
-        List<OrderFillResponse> orderTrades = novadaxApiClient.getOrderTrades("654021124523479040");
+        List<OrderFillResponse> orderTrades = ApiClient.getOrderTrades("654021124523479040");
         System.out.println(gson.toJson(orderTrades));
     }
 
     @Test
     public void getAccount() {
-        List<AccountResponse> accounts = novadaxApiClient.getAccounts();
+        List<AccountResponse> accounts = ApiClient.getAccounts();
         System.out.println(gson.toJson(accounts));
 
         /*
@@ -139,16 +139,16 @@ public class ApiClientTest {
     @Test
     public void getSubs() {
         // subs
-        List<AccountSubResponse> subs = novadaxApiClient.getSubs();
+        List<AccountSubResponse> subs = ApiClient.getSubs();
         System.out.println(gson.toJson(subs));
 
         // sub-balance
         String subId = "CA648855702269333504";
-        List<AccountSubBalanceResponse> sb = novadaxApiClient.getSubBalance(subId);
+        List<AccountSubBalanceResponse> sb = ApiClient.getSubBalance(subId);
         System.out.println(gson.toJson(sb));
 
         // sub-record
-        List<AccountSubTransferResponse> st = novadaxApiClient.getSubTransfer(subId);
+        List<AccountSubTransferResponse> st = ApiClient.getSubTransfer(subId);
         System.out.println(gson.toJson(st));
 
     }
@@ -161,7 +161,7 @@ public class ApiClientTest {
         request.setCurrency("BTC");
         request.setTransferAmount(new BigDecimal("0.52"));
         request.setTransferType("master-transfer-in");
-        int id = novadaxApiClient.subTransfer(request);
+        int id = ApiClient.subTransfer(request);
         System.out.println(id);
 
     }
@@ -170,19 +170,19 @@ public class ApiClientTest {
     public void walletRecord() {
         // sub-transfer
         DepositWithdrawRequest request = new DepositWithdrawRequest();
-        List<DepositWithdrawResponse> responseList = novadaxApiClient.walletRecord(request);
+        List<DepositWithdrawResponse> responseList = ApiClient.walletRecord(request);
         System.out.println(gson.toJson(responseList));
 
     }
 
 
     @Test
-    public void testKline(){
+    public void testKline() {
         MarketKlineRequest marketKlineRequest = new MarketKlineRequest();
         marketKlineRequest.setFrom(1602406646l);
         marketKlineRequest.setTo(1602579446l);
         marketKlineRequest.setSymbol("BTC_BRL");
         marketKlineRequest.setUnit("ONE_MIN");
-        System.out.println(novadaxApiClient.getKline(marketKlineRequest));
+        System.out.println(ApiClient.getKline(marketKlineRequest));
     }
 }

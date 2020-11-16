@@ -29,8 +29,8 @@ public class NovadaxApiClient {
     static final int READ_TIMEOUT = 5;
     static final int WRITE_TIMEOUT = 5;
 
-    final String accessKeyId;
-    final String accessKeySecret;
+    final String accessKey;
+    final String secretKey;
 
     static Gson gson = new Gson();
 
@@ -38,12 +38,12 @@ public class NovadaxApiClient {
     /**
      * create ApiClient
      *
-     * @param accessKeyId     AccessKeyId
-     * @param accessKeySecret AccessKeySecret
+     * @param accessKey accessKey
+     * @param secretKey secretKey
      */
-    public NovadaxApiClient(String accessKeyId, String accessKeySecret) {
-        this.accessKeyId = accessKeyId;
-        this.accessKeySecret = accessKeySecret;
+    public NovadaxApiClient(String accessKey, String secretKey) {
+        this.accessKey = accessKey;
+        this.secretKey = secretKey;
     }
 
     /**
@@ -327,10 +327,10 @@ public class NovadaxApiClient {
             }
             String timestamp = String.valueOf(System.currentTimeMillis());
 
-            builder.addHeader("X-Nova-Access-Key", this.accessKeyId);
+            builder.addHeader("X-Nova-Access-Key", this.accessKey);
             builder.addHeader("X-Nova-Timestamp", timestamp);
             builder.addHeader("X-Nova-Signature",
-                    sign.getSignature(method, uri, toQueryString(params), bodyStr, timestamp, this.accessKeySecret));
+                    sign.getSignature(method, uri, toQueryString(params), bodyStr, timestamp, this.secretKey));
 
             Request request = builder.build();
             Response response = client.newCall(request).execute();
