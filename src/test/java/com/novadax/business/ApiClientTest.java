@@ -20,6 +20,7 @@ public class ApiClientTest {
     private final String accessKey = "";
     private final String secretKey = "";
 
+
     private final NovadaxApiClient ApiClient = new NovadaxApiClient(accessKey, secretKey);
 
     @Test
@@ -30,6 +31,20 @@ public class ApiClientTest {
         placeRequest.setSide("SELL");
         placeRequest.setPrice("40000");
         placeRequest.setAmount("0.12");
+        OrderRecordResponse order = ApiClient.createOrder(placeRequest);
+        System.out.println(gson.toJson(order));
+    }
+
+    @Test
+    public void createStopOrder() {
+        OrderCreateRequest placeRequest = new OrderCreateRequest();
+        placeRequest.setSymbol("BTC_BRL");
+        placeRequest.setType("STOP_LIMIT");
+        placeRequest.setSide("SELL");
+        placeRequest.setPrice("180000");
+        placeRequest.setAmount("0.001");
+        placeRequest.setStopPrice("190000");
+        placeRequest.setOperator("LTE");
         OrderRecordResponse order = ApiClient.createOrder(placeRequest);
         System.out.println(gson.toJson(order));
     }

@@ -11,6 +11,8 @@ public class OrderCreateRequest implements Serializable {
     private String price;
     private String amount;
     private String value;
+    private String operator;
+    private String stopPrice;
     private String source;
 
     public String getAccountId() {
@@ -67,6 +69,22 @@ public class OrderCreateRequest implements Serializable {
 
     public void setValue(String value) {
         this.value = value;
+    }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator;
+    }
+
+    public String getStopPrice() {
+        return stopPrice;
+    }
+
+    public void setStopPrice(String stopPrice) {
+        this.stopPrice = stopPrice;
     }
 
     public String getSource() {

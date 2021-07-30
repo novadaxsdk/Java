@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.novadax.business.listener.WebSocketListener;
 import com.novadax.business.response.MarketDepthResponse;
-import com.novadax.business.response.MarketKlineResponse;
 import com.novadax.business.response.MarketTickerResponse;
 import com.novadax.business.response.MarketTradeResponse;
 import io.socket.client.IO;
