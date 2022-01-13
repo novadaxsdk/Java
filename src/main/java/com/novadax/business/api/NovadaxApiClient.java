@@ -10,10 +10,7 @@ import okhttp3.*;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.net.URLEncoder;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
@@ -156,7 +153,8 @@ public class NovadaxApiClient {
     }
 
     public CryptoBasicResponse cryptoChain(String code) {
-        BaseResponse<CryptoBasicResponse> resp = get("/crypto/chain/" + code, null, new TypeToken<BaseResponse<CryptoBasicResponse>>() {
+        String codeAccount = Optional.ofNullable(code).orElse("ALL");
+        BaseResponse<CryptoBasicResponse> resp = get("/crypto/chain/" + codeAccount, null, new TypeToken<BaseResponse<CryptoBasicResponse>>() {
         });
         return resp.checkAndReturn();
     }
