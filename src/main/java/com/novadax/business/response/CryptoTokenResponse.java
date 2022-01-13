@@ -7,14 +7,12 @@ public class CryptoTokenResponse implements Serializable {
     private String codeAccount;
     private String chainAlias;
     private String chainName;
-    private String codeToken;
     private String mainAddr;
     private Integer useMemo;
     private Integer useDynamicSendFee;
     private Integer minConf;
     private Integer useFirst;
     private Integer showOrder;
-    private Integer state;
     private String chainURL;
     private String chainAddressURL;
     private String chainHashURL;
@@ -42,14 +40,6 @@ public class CryptoTokenResponse implements Serializable {
 
     public void setChainName(String chainName) {
         this.chainName = chainName;
-    }
-
-    public String getCodeToken() {
-        return codeToken;
-    }
-
-    public void setCodeToken(String codeToken) {
-        this.codeToken = codeToken;
     }
 
     public String getMainAddr() {
@@ -98,14 +88,6 @@ public class CryptoTokenResponse implements Serializable {
 
     public void setShowOrder(Integer showOrder) {
         this.showOrder = showOrder;
-    }
-
-    public Integer getState() {
-        return state;
-    }
-
-    public void setState(Integer state) {
-        this.state = state;
     }
 
     public String getChainURL() {
