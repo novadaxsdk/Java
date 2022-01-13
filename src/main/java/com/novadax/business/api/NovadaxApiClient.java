@@ -149,8 +149,14 @@ public class NovadaxApiClient {
         return resp.checkAndReturn();
     }
 
-    public String withdrawcoin(AccountWithdrawCoinRequest request) {
+    public String withdrawCoin(AccountWithdrawCoinRequest request) {
         BaseResponse<String> resp = post("/v1/account/withdraw/coin", request, new TypeToken<BaseResponse<String>>() {
+        });
+        return resp.checkAndReturn();
+    }
+
+    public CryptoBasicResponse cryptoChain(String code) {
+        BaseResponse<CryptoBasicResponse> resp = get("/crypto/chain/" + code, null, new TypeToken<BaseResponse<CryptoBasicResponse>>() {
         });
         return resp.checkAndReturn();
     }
