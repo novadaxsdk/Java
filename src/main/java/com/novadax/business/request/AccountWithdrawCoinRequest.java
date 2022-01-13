@@ -6,6 +6,7 @@ public class AccountWithdrawCoinRequest implements Serializable {
 
     private String amount;
     private String code;
+    private String chainAlias;
     private String wallet;
     private String tag;
 
@@ -39,5 +40,13 @@ public class AccountWithdrawCoinRequest implements Serializable {
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    public String getChainAlias() {
+        return chainAlias;
+    }
+
+    public void setChainAlias(String chainAlias) {
+        this.chainAlias = chainAlias;
     }
 }
