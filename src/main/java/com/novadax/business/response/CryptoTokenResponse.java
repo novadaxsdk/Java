@@ -13,6 +13,7 @@ public class CryptoTokenResponse implements Serializable {
     private Integer minConf;
     private Integer useFirst;
     private Integer showOrder;
+    private Integer state;
     private String chainURL;
     private String chainAddressURL;
     private String chainHashURL;
@@ -120,5 +121,13 @@ public class CryptoTokenResponse implements Serializable {
 
     public void setOfficialURL(String officialURL) {
         this.officialURL = officialURL;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 }
