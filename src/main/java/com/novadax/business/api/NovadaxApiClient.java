@@ -152,9 +152,9 @@ public class NovadaxApiClient {
         return resp.checkAndReturn();
     }
 
-    public CryptoBasicResponse cryptoChain(String code) {
+    public List<CryptoBasicResponse> cryptoChain(String code) {
         String codeAccount = Optional.ofNullable(code).orElse("ALL");
-        BaseResponse<CryptoBasicResponse> resp = get("/crypto/chain/" + codeAccount, null, new TypeToken<BaseResponse<CryptoBasicResponse>>() {
+        BaseResponse<List<CryptoBasicResponse>> resp = get("/v1/wallet/crypto/chain/" + codeAccount, null, new TypeToken<BaseResponse<List<CryptoBasicResponse>>>() {
         });
         return resp.checkAndReturn();
     }

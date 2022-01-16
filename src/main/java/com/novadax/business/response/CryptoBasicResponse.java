@@ -1,8 +1,7 @@
 package com.novadax.business.response;
 
 
-import com.sun.tools.javac.util.List;
-
+import java.util.List;
 import java.io.Serializable;
 
 public class CryptoBasicResponse implements Serializable {
@@ -53,6 +52,7 @@ public class CryptoBasicResponse implements Serializable {
     public void setAccountState(Integer accountState) {
         this.accountState = accountState;
     }
+
 
     public List<CryptoTokenResponse> getTokens() {
         return tokens;

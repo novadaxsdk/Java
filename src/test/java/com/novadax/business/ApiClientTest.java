@@ -190,6 +190,24 @@ public class ApiClientTest {
 
     }
 
+    @Test
+    public void walletWithdraw() {
+        AccountWithdrawCoinRequest request = new AccountWithdrawCoinRequest();
+        request.setAmount("0.05");
+        request.setCode("BTC");
+        request.setWallet("tb1q3vqzdh69lxffyf4n9z5ksep99qm9v4h5z3mfww");
+        String res = ApiClient.withdrawCoin(request);
+        System.out.println(gson.toJson(res));
+
+    }
+
+    @Test
+    public void walletChain() {
+        List<CryptoBasicResponse> res = ApiClient.cryptoChain(null);
+        System.out.println(gson.toJson(res));
+
+    }
+
 
     @Test
     public void testKline() {
